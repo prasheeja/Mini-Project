@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ recipe['Recipe Name'] }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url("{{ url_for('static', filename='recipe_detail_bg.jpg') }}") 
+                        center/cover no-repeat fixed;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        .content {
+            background: rgba(0,0,0,0.6);
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 800px;
+            margin: 30px auto;
+        }
+        h2 {
+            color: #ffdd57;
+        }
+        .label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h2>{{ recipe['Recipe Name'] }}</h2>
+        <p><span class="label">Ingredients:</span> {{ recipe['Ingredients'] }}</p>
+        <p><span class="label">Instructions:</span> {{ recipe['Steps'] }}</p>
+        <p><span class="label">Nutrition:</span> {{ recipe['Nutrition Tags'] }}</p>
+        {% if recipe['Cooking Time'] %}
+            <p><span class="label">Cooking Time:</span> {{ recipe['Cooking Time'] }}</p>
+        {% endif %}
+
+        <div class="feedback-form">
+            <h3>Was this helpful?</h3>
+            <form method="POST" action="/feedback">
+                <input type="hidden" name="recipe_name" value="{{ recipe['Recipe Name'] }}">
+                <label><input type="radio" name="feedback" value="Yes" required> Yes</label>
+                <label><input type="radio" name="feedback" value="No"> No</label>
+                <br><br>
+                <button type="submit">Submit Feedback</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
